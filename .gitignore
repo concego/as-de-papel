@@ -1,0 +1,19 @@
+# Dependencies and build output
+node_modules/
+dist/
+build/
+.vite/
+coverage/
+
+# Local configuration
+.env
+.env.*
+!.env.example
+
+# Operating-system/editor files
+.DS_Store
+*.swp
+*.swo
+
+# Logs
+*.log
