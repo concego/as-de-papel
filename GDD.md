@@ -526,6 +526,44 @@ O rodapé exibirá um log com as quatro últimas ações realizadas no jogo.
 - **Objetos que permitem pouso:** sofá, caixa de brinquedos, chinelos, cama, escrivaninha e cadeira.
 - **Questões em aberto:** coordenadas finais, Z da janela, intensidade/direção do vento, quantidade de lançamentos esperada e critério de sucesso do protótipo.
 
+### IDEIA-021 — Rejeição da direção sonora Cartoon
+- **Origem:** avaliação da nova leva de candidatos de áudio.
+- **Estado:** direção rejeitada para o projeto.
+- **Conclusão:** a vibe Cartoon, os sons de avião antigo e a abordagem de efeitos sintetizados ainda soaram como beeps cartoon, mesmo quando receberam mais camadas e corpo.
+- **Candidatos afetados:** os 19 sons da nova leva foram descartados; nenhum será integrado.
+- **Aprendizado:** alterar o timbre de um beep não basta; a linguagem sonora inteira precisa deixar de ser sintética e tonal.
+- **Próximo passo:** testar uma direção baseada em gravações/foley reais antes de qualquer nova integração.
+
+### IDEIA-022 — Possíveis novas direções sonoras
+- **Estado:** opções de brainstorming; nenhuma escolhida.
+
+1. **Foley de papel e casa:** sons táteis de papel, ar, madeira, tecido, piso e objetos do quarto. Identidade forte, natural e aplicável aos mapas futuros.
+2. **Realismo estilizado:** ambiente doméstico reconhecível, com sons um pouco exagerados para manter clareza sem cair no Cartoon.
+3. **Minimalismo musical:** sons curtos baseados em intervalos e acordes, sem beeps secos e sem melodias longas.
+4. **Retro analógico sóbrio:** sintetizadores quentes e texturizados, evitando timbres digitais de beep.
+5. **Híbrido recomendado:** foley de papel e ambiente realista para ações/eventos, com feedback musical minimalista para Radar, intensidade, direção e estados.
+
+- **Recomendação inicial:** testar primeiro um conjunto de gravações/foley reais, usando sons físicos de papel, ar, tecido, madeira, borracha e ambiente doméstico.
+- **Rodada avaliada:** foram enviados ao Sound Testing 23 novos candidatos de áudio sintetizados; todos foram rejeitados porque ainda soavam como beeps cartoon.
+- **Sons aprovados no Sound Testing:** os três candidatos reais de vento do OpenGameArt foram aprovados: `04-oga-short-wind-sound-cc0.wav`, `05-oga-mild-wind-background-cc0.wav` e `06-oga-wind-whoosh-loop-cc0.ogg`. O segundo mantém o crédito recomendado na página de origem; os créditos estão registrados no `sound-testing/OGA-CREDITS.md`.
+- **Faixa aprovada:** `03-morning-kevin-macleod-cc-by4.mp3`, “Morning”, de Kevin MacLeod, licenciada sob Creative Commons Attribution 4.0; a atribuição deverá ser preservada.
+- **Nova regra:** não usar efeitos sintetizados com estrutura de beep, nem tentar resolver isso apenas adicionando camadas, graves ou reverberação.
+- **Princípios:** sons curtos, distintos, sem competir com TalkBack/NVDA, sem depender apenas de cor e sem usar fala sintetizada do jogo.
+
+### IDEIA-023 — Música aprovada para a fase do quarto
+- **Origem:** seleção do Anderson no Sound Testing.
+- **Estado:** aprovada para futura integração.
+- **Arquivo:** `03-morning-kevin-macleod-cc-by4.mp3`, na pasta Música e outros.
+- **Faixa:** “Morning”, de Kevin MacLeod.
+- **Licença:** Creative Commons Attribution 4.0; a atribuição deverá ser mantida no projeto e nos créditos apropriados.
+- **Observação:** essa aprovação vale para a música; os três efeitos de vento do OpenGameArt também foram aprovados separadamente. Os 23 efeitos e esboços sintéticos da rodada anterior foram rejeitados.
+
+### IDEIA-020 — Sons da fase do quarto: rodada descartada
+- **Origem:** primeira seleção do Anderson no Sound Testing.
+- **Estado:** todos descartados posteriormente; nenhum som desta rodada será integrado.
+- **Observação:** a aprovação anterior foi revogada quando a direção Cartoon foi abandonada.
+- **Próximo passo:** gerar uma nova rodada somente depois de escolher outra direção sonora.
+
 ### IDEIA-001 — Aviãozinho de papel como unidade jogável
 - **Origem:** conceito inicial do projeto.
 - **Estado:** confirmada como fantasia central; mecânicas ainda abertas.
