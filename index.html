@@ -1,0 +1,115 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Protótipo de experiência de Ás de papel: puzzle estratégico 3D em um quarto.">
+  <title>Ás de papel — Protótipo do quarto</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <a class="skip-link" href="#game">Pular para o jogo</a>
+  <header class="site-header">
+    <div class="header-inner">
+      <div>
+        <p class="eyebrow">Ás de papel · protótipo de experiência</p>
+        <h1>O quarto</h1>
+        <p class="lead">Planeje cada lançamento. O avião sobe, avança e desce dentro do turno.</p>
+      </div>
+      <button id="languageButton" class="secondary-button" type="button" aria-label="Mudar idioma">English</button>
+    </div>
+  </header>
+
+  <main id="game" class="layout">
+    <section class="play-column" aria-labelledby="board-title">
+      <div class="status-card" aria-labelledby="status-title">
+        <h2 id="status-title">Estado da fase</h2>
+        <div class="stats" id="stats" aria-live="polite"></div>
+      </div>
+
+      <div class="board-card">
+        <div class="board-heading">
+          <div>
+            <p class="eyebrow">Mapa tridimensional</p>
+            <h2 id="board-title">Tabuleiro do quarto</h2>
+          </div>
+          <p id="cameraStatus" class="camera-status" aria-live="polite"></p>
+        </div>
+        <div class="board-wrap" tabindex="0" aria-label="Visualização SVG do tabuleiro do quarto. Use o Radar para ouvir a descrição dos elementos.">
+          <svg id="board" viewBox="0 0 960 700" role="img" aria-labelledby="board-title board-desc">
+            <desc id="board-desc">Tabuleiro de doze colunas por dez linhas com cama, escrivaninha, cadeira, guarda-roupas, chinelos, caixa de brinquedos, janela, sofá e porta.</desc>
+            <defs>
+              <linearGradient id="floorGradient" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#f4eadb"/><stop offset="1" stop-color="#d9c6af"/></linearGradient>
+              <filter id="shadow" x="-30%" y="-30%" width="160%" height="180%"><feGaussianBlur stdDeviation="5"/></filter>
+            </defs>
+            <g id="boardLayer"></g>
+            <g id="pathLayer"></g>
+            <g id="objectLayer"></g>
+            <g id="planeLayer"></g>
+            <g id="cameraFocus"></g>
+          </svg>
+        </div>
+        <p class="board-note">A visualização é uma leitura espacial de apoio. O Radar descreve o tabuleiro sem depender apenas da visão.</p>
+      </div>
+
+      <section class="log-card" aria-labelledby="log-title">
+        <h2 id="log-title">Últimas ações</h2>
+        <ol id="actionLog" class="action-log" aria-live="polite"></ol>
+      </section>
+    </section>
+
+    <aside class="control-column" aria-label="Controles do jogo">
+      <section class="control-card" aria-labelledby="camera-title">
+        <h2 id="camera-title">Câmera</h2>
+        <p class="control-help">Navegue uma casa por vez pelo plano e ajuste a camada de altura.</p>
+        <div class="camera-grid">
+          <button data-action="zUp" type="button">Elevar câmera<span>Page Up</span></button>
+          <button data-action="north" type="button">Norte<span>↑</span></button>
+          <button data-action="zDown" type="button">Abaixar câmera<span>Page Down</span></button>
+          <button data-action="west" type="button">Oeste<span>←</span></button>
+          <button data-action="south" type="button">Sul<span>↓</span></button>
+          <button data-action="east" type="button">Leste<span>→</span></button>
+        </div>
+      </section>
+
+      <section class="control-card" aria-labelledby="plane-title">
+        <h2 id="plane-title">Avião</h2>
+        <p id="directionText" class="direction-text" aria-live="polite"></p>
+        <div class="plane-controls">
+          <button data-action="rotateLeft" type="button">↺<span>Girar à esquerda</span></button>
+          <button id="launchButton" class="launch-button" data-action="launch" type="button">Lançar<span>Espaço</span></button>
+          <button data-action="rotateRight" type="button">↻<span>Girar à direita</span></button>
+        </div>
+        <div id="intensityPanel" class="intensity-panel" hidden aria-live="polite">
+          <p><strong>Escolha a intensidade</strong><br><span id="intensityHint">A barra está alternando.</span></p>
+          <div class="intensity-meter" aria-hidden="true"><span id="intensityMeterFill"></span></div>
+          <div id="intensityChoices" class="intensity-choices"></div>
+        </div>
+      </section>
+
+      <section class="control-card radar-card" aria-labelledby="radar-title">
+        <div class="card-heading-row"><h2 id="radar-title">Radar</h2><span class="key-badge">R</span></div>
+        <p class="control-help">Lê os elementos próximos da posição atual do avião, incluindo alturas.</p>
+        <button id="radarButton" class="wide-button" data-action="radar" type="button">Ler o Radar</button>
+        <div id="radarOutput" class="radar-output" tabindex="0" aria-live="polite"></div>
+      </section>
+
+      <section class="control-card legend-card" aria-labelledby="legend-title">
+        <h2 id="legend-title">Como jogar</h2>
+        <ul>
+          <li><kbd>A</kbd> e <kbd>D</kbd> giram o avião.</li>
+          <li><kbd>Espaço</kbd> inicia e confirma um lançamento.</li>
+          <li><kbd>W</kbd> informa a direção atual.</li>
+          <li><kbd>R</kbd> lê o Radar.</li>
+          <li><kbd>H</kbd> informa a durabilidade.</li>
+          <li><kbd>S</kbd> informa a pontuação.</li>
+        </ul>
+        <button id="resetButton" class="secondary-button wide-button" type="button">Reiniciar fase</button>
+      </section>
+    </aside>
+  </main>
+
+  <footer class="site-footer"><p>Protótipo técnico/experiencial · decisões numéricas ainda podem ser balanceadas.</p></footer>
+  <script src="app.js"></script>
+</body>
+</html>
