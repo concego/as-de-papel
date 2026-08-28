@@ -179,7 +179,7 @@ O rodapé exibirá um log com as quatro últimas ações realizadas no jogo.
 - [x] Definir tela de seleção de idioma na primeira execução.
 - [x] Definir alteração de idioma pelo menu de opções.
 - [ ] Definir se existe narrativa, personagens ou apenas desafios abstratos.
-- [ ] Definir escopo do primeiro protótipo web.
+- [x] Definir escopo inicial e publicar o primeiro protótipo web do quarto.
 
 ## 7. Decisões confirmadas
 
@@ -279,6 +279,7 @@ O rodapé exibirá um log com as quatro últimas ações realizadas no jogo.
 - TalkBack/NVDA anunciarão quando a direção do avião for alterada.
 - Enter confirmará ações e ativará opções; Esc cancelará ações ou voltará.
 - A tecnologia inicial será web.
+- O primeiro protótipo de experiência será a fase do quarto em uma página estática, com tabuleiro SVG pseudo-3D, fluxo de lançamento em duas etapas, Radar, controles acessíveis, log de ações, regras provisórias de vento/colisão e o som aprovado de voo.
 - Capacitor é a rota planejada para transformar o projeto em aplicativo posteriormente.
 
 ## 8. Decisões em aberto
