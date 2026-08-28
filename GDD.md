@@ -549,8 +549,8 @@ O rodapé exibirá um log com as quatro últimas ações realizadas no jogo.
 - **Rodada do OpenGameArt aprovada:** sete efeitos gravados foram aprovados: dois de virar papel, um de puxar papel, dois de tecido, um impacto e um de abrir papel. Quatro candidatos foram rejeitados e removidos. Os créditos e as fontes estão em `sound-testing/OGA-FOLEY-CREDITS.md`.
 - **Faixa aprovada:** `03-morning-kevin-macleod-cc-by4.mp3`, “Morning”, de Kevin MacLeod, licenciada sob Creative Commons Attribution 4.0; a atribuição deverá ser preservada.
 - **Rodada complementar do OpenGameArt:** seis candidatos foram aprovados: um rasgo de papel, uma variação de porta aberta, um fechamento de madeira, uma batida de madeira e um rangido de madeira. Os 11 candidatos restantes foram rejeitados e removidos. Os créditos e as fontes estão em `sound-testing/OGA-FOLEY-CREDITS.md`.
-- **Nova rodada candidata do OpenGameArt:** cinco candidatos de interface/Radar foram adicionados: quatro sinos acústicos curtos e um clique simples. Nenhum está aprovado ainda; os créditos e as fontes estão em `sound-testing/OGA-FOLEY-CREDITS.md`.
-- **Total atual aprovado:** 17 arquivos de áudio.
+- **Rodada de interface/Radar do OpenGameArt:** dois candidatos foram aprovados: um sino acústico curto e um clique simples. Os três sinos restantes foram rejeitados e removidos. Os créditos e as fontes estão em `sound-testing/OGA-FOLEY-CREDITS.md`.
+- **Total atual aprovado:** 19 arquivos de áudio.
 - **Nova regra:** não usar efeitos sintetizados com estrutura de beep, nem tentar resolver isso apenas adicionando camadas, graves ou reverberação.
 - **Princípios:** sons curtos, distintos, sem competir com TalkBack/NVDA, sem depender apenas de cor e sem usar fala sintetizada do jogo.
 
@@ -560,7 +560,7 @@ O rodapé exibirá um log com as quatro últimas ações realizadas no jogo.
 - **Arquivo:** `03-morning-kevin-macleod-cc-by4.mp3`, na pasta Música e outros.
 - **Faixa:** “Morning”, de Kevin MacLeod.
 - **Licença:** Creative Commons Attribution 4.0; a atribuição deverá ser mantida no projeto e nos créditos apropriados.
-- **Observação:** essa aprovação vale para a música. Os três efeitos de vento e os seis efeitos complementares do OpenGameArt também foram aprovados separadamente, totalizando 17 arquivos aprovados. Os 23 efeitos e esboços sintéticos da rodada anterior foram rejeitados.
+- **Observação:** essa aprovação vale para a música. Os três efeitos de vento, os seis efeitos complementares e os dois sons de interface/Radar do OpenGameArt também foram aprovados separadamente, totalizando 19 arquivos aprovados. Os 23 efeitos e esboços sintéticos da rodada anterior foram rejeitados.
 
 ### IDEIA-020 — Sons da fase do quarto: rodada descartada
 - **Origem:** primeira seleção do Anderson no Sound Testing.
