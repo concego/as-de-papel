@@ -548,6 +548,7 @@ O rodapé exibirá um log com as quatro últimas ações realizadas no jogo.
 - **Sons aprovados no Sound Testing:** os três candidatos reais de vento do OpenGameArt foram aprovados: `04-oga-short-wind-sound-cc0.wav`, `05-oga-mild-wind-background-cc0.wav` e `06-oga-wind-whoosh-loop-cc0.ogg`. O segundo mantém o crédito recomendado na página de origem; os créditos estão registrados no `sound-testing/OGA-CREDITS.md`.
 - **Rodada do OpenGameArt aprovada:** sete efeitos gravados foram aprovados: dois de virar papel, um de puxar papel, dois de tecido, um impacto e um de abrir papel. Quatro candidatos foram rejeitados e removidos. Os créditos e as fontes estão em `sound-testing/OGA-FOLEY-CREDITS.md`.
 - **Faixa aprovada:** `03-morning-kevin-macleod-cc-by4.mp3`, “Morning”, de Kevin MacLeod, licenciada sob Creative Commons Attribution 4.0; a atribuição deverá ser preservada.
+- **Nova rodada candidata do OpenGameArt:** foram adicionados 17 candidatos para completar a paleta: um rasgo de papel, nove variações de porta, seis sons de madeira (abertura, fechamento, batidas e rangidos) e um rangido de borracha. Nenhum está aprovado ainda; os créditos e as fontes estão em `sound-testing/OGA-FOLEY-CREDITS.md`.
 - **Total atual aprovado:** 11 arquivos de áudio.
 - **Nova regra:** não usar efeitos sintetizados com estrutura de beep, nem tentar resolver isso apenas adicionando camadas, graves ou reverberação.
 - **Princípios:** sons curtos, distintos, sem competir com TalkBack/NVDA, sem depender apenas de cor e sem usar fala sintetizada do jogo.
