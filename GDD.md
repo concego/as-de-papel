@@ -549,6 +549,7 @@ O rodapé exibirá um log com as quatro últimas ações realizadas no jogo.
 - **Rodada do OpenGameArt aprovada:** sete efeitos gravados foram aprovados: dois de virar papel, um de puxar papel, dois de tecido, um impacto e um de abrir papel. Quatro candidatos foram rejeitados e removidos. Os créditos e as fontes estão em `sound-testing/OGA-FOLEY-CREDITS.md`.
 - **Faixa aprovada:** `03-morning-kevin-macleod-cc-by4.mp3`, “Morning”, de Kevin MacLeod, licenciada sob Creative Commons Attribution 4.0; a atribuição deverá ser preservada.
 - **Rodada complementar do OpenGameArt:** seis candidatos foram aprovados: um rasgo de papel, uma variação de porta aberta, um fechamento de madeira, uma batida de madeira e um rangido de madeira. Os 11 candidatos restantes foram rejeitados e removidos. Os créditos e as fontes estão em `sound-testing/OGA-FOLEY-CREDITS.md`.
+- **Nova rodada candidata do OpenGameArt:** cinco candidatos de interface/Radar foram adicionados: quatro sinos acústicos curtos e um clique simples. Nenhum está aprovado ainda; os créditos e as fontes estão em `sound-testing/OGA-FOLEY-CREDITS.md`.
 - **Total atual aprovado:** 17 arquivos de áudio.
 - **Nova regra:** não usar efeitos sintetizados com estrutura de beep, nem tentar resolver isso apenas adicionando camadas, graves ou reverberação.
 - **Princípios:** sons curtos, distintos, sem competir com TalkBack/NVDA, sem depender apenas de cor e sem usar fala sintetizada do jogo.
