@@ -551,8 +551,7 @@ O rodapé exibirá um log com as quatro últimas ações realizadas no jogo.
 - **Rodada complementar do OpenGameArt:** seis candidatos foram aprovados: um rasgo de papel, uma variação de porta aberta, um fechamento de madeira, uma batida de madeira e um rangido de madeira. Os 11 candidatos restantes foram rejeitados e removidos. Os créditos e as fontes estão em `sound-testing/OGA-FOLEY-CREDITS.md`.
 - **Rodada de interface/Radar do OpenGameArt:** dois candidatos foram aprovados: um sino acústico curto e um clique simples. Os três sinos restantes foram rejeitados e removidos. Os créditos e as fontes estão em `sound-testing/OGA-FOLEY-CREDITS.md`.
 - **Direção proposta para o voo:** buscar um som breve de motor a pistão antigo, lembrando aviões de hélice da Segunda Guerra Mundial. Sons longos de motores de carros antigos também podem servir como matéria-prima, desde que tenham caráter mecânico realista; o trecho poderá ser cortado, ajustado e posto em loop. Evitar motor a jato, motor moderno dominante e qualquer beep sintetizado.
-- **Motor aprovado para testes de voo:** `34-gaz69-1965-engine-idle-sonniss-candidate.wav`, trecho de gravação real de um GAZ-69 de 1965, com licença Sonniss compatível com uso comercial. A aprovação é para futura integração; ainda é necessário validar se o timbre funciona como motor de voo.
-- **Novos candidatos em avaliação:** `35-fokker-dvii-1918-engine-rpm-sonniss-candidate.wav`, `36-spitfire-mkix-1943-engine-idle-blips-sonniss-candidate.wav` e `37-spitfire-mkix-1943-takeoff-by-sonniss-candidate.wav`. São trechos de gravações reais de aeronaves históricas, com licença Sonniss compatível com uso comercial; ainda não estão aprovados.
+- **Som aprovado para o voo:** `37-spitfire-mkix-1943-takeoff-by-sonniss-candidate.wav`, trecho de gravação real de um Supermarine Spitfire Mk IX de 1943, com licença Sonniss compatível com uso comercial. A aprovação é para futura integração no voo; o uso exato em lançamento, deslocamento e/ou passagem ainda será definido no protótipo.
 - **Total atual aprovado:** 20 arquivos de áudio.
 - **Nova regra:** não usar efeitos sintetizados com estrutura de beep, nem tentar resolver isso apenas adicionando camadas, graves ou reverberação.
 - **Princípios:** sons curtos, distintos, sem competir com TalkBack/NVDA, sem depender apenas de cor e sem usar fala sintetizada do jogo.
@@ -563,7 +562,7 @@ O rodapé exibirá um log com as quatro últimas ações realizadas no jogo.
 - **Arquivo:** `03-morning-kevin-macleod-cc-by4.mp3`, na pasta Música e outros.
 - **Faixa:** “Morning”, de Kevin MacLeod.
 - **Licença:** Creative Commons Attribution 4.0; a atribuição deverá ser mantida no projeto e nos créditos apropriados.
-- **Observação:** essa aprovação vale para a música. Os três efeitos de vento, os seis efeitos complementares e os dois sons de interface/Radar do OpenGameArt também foram aprovados separadamente. O motor do GAZ-69 foi aprovado posteriormente como candidato para a camada de voo, totalizando 20 arquivos aprovados. Os 23 efeitos e esboços sintéticos da rodada anterior foram rejeitados.
+- **Observação:** essa aprovação vale para a música. Os três efeitos de vento, os seis efeitos complementares e os dois sons de interface/Radar do OpenGameArt também foram aprovados separadamente. O trecho de decolagem/sobrevoo do Supermarine Spitfire Mk IX foi aprovado posteriormente para a camada de voo, totalizando 20 arquivos aprovados. Os demais candidatos de motor foram removidos do Sound Testing. Os 23 efeitos e esboços sintéticos da rodada anterior foram rejeitados.
 
 ### IDEIA-020 — Sons da fase do quarto: rodada descartada
 - **Origem:** primeira seleção do Anderson no Sound Testing.
