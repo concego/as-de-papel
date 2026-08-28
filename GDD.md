@@ -546,6 +546,7 @@ O rodapé exibirá um log com as quatro últimas ações realizadas no jogo.
 - **Recomendação inicial:** testar primeiro um conjunto de gravações/foley reais, usando sons físicos de papel, ar, tecido, madeira, borracha e ambiente doméstico.
 - **Rodada avaliada:** foram enviados ao Sound Testing 23 novos candidatos de áudio sintetizados; todos foram rejeitados porque ainda soavam como beeps cartoon.
 - **Sons aprovados no Sound Testing:** os três candidatos reais de vento do OpenGameArt foram aprovados: `04-oga-short-wind-sound-cc0.wav`, `05-oga-mild-wind-background-cc0.wav` e `06-oga-wind-whoosh-loop-cc0.ogg`. O segundo mantém o crédito recomendado na página de origem; os créditos estão registrados no `sound-testing/OGA-CREDITS.md`.
+- **Nova rodada candidata do OpenGameArt:** foram adicionados 11 efeitos gravados para avaliação: cinco de papel, três de tecido, um impacto e dois de papel abrindo/fechando. Nenhum deles está aprovado ainda; os créditos e as fontes estão em `sound-testing/OGA-FOLEY-CREDITS.md`.
 - **Faixa aprovada:** `03-morning-kevin-macleod-cc-by4.mp3`, “Morning”, de Kevin MacLeod, licenciada sob Creative Commons Attribution 4.0; a atribuição deverá ser preservada.
 - **Nova regra:** não usar efeitos sintetizados com estrutura de beep, nem tentar resolver isso apenas adicionando camadas, graves ou reverberação.
 - **Princípios:** sons curtos, distintos, sem competir com TalkBack/NVDA, sem depender apenas de cor e sem usar fala sintetizada do jogo.
