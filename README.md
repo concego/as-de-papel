@@ -20,6 +20,8 @@ Protótipo de experiência do primeiro cômodo: o quarto.
 - controles por toque e teclado;
 - headings, foco, live regions e log compatíveis com a navegação assistiva;
 - idioma inicial em Português e alternância experimental para Inglês;
-- reprodução do som aprovado de voo.
+- reprodução do som aprovado de voo;
+- música da fase com controle explícito para respeitar a política de autoplay do navegador;
+- indicadores discretos gerados pela Web Audio API para intensidade, rotação, camada Z, lançamento e resultado.
 
-Esta é uma versão de experiência para validar sensação, clareza e fluxo. Os números de equilíbrio e algumas regras do quarto continuam provisórios.
+Esta é uma versão de experiência para validar sensação, clareza e fluxo. Os indicadores sintéticos são auxiliares mínimos, não substituem os sons físicos aprovados e não usam voz ou áudio paralelo ao leitor de tela. Os números de equilíbrio e algumas regras do quarto continuam provisórios.
