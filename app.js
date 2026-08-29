@@ -6,6 +6,7 @@ const planeLayer = document.querySelector('#planeLayer');
 const cameraFocus = document.querySelector('#cameraFocus');
 const stats = document.querySelector('#stats');
 const logList = document.querySelector('#actionLog');
+const screenReaderAnnouncement = document.querySelector('#screenReaderAnnouncement');
 const launchButton = document.querySelector('#launchButton');
 const intensityPanel = document.querySelector('#intensityPanel');
 const intensityChoices = document.querySelector('#intensityChoices');
@@ -108,7 +109,11 @@ function renderStats() {
   cameraStatus.textContent = (state.lang==='pt' ? `Câmera: X ${state.cameraX}, Y ${state.cameraY}, Z ${state.cameraZ}` : `Camera: X ${state.cameraX}, Y ${state.cameraY}, Z ${state.cameraZ}`);
 }
 function addLog(text) { state.log.unshift(text); state.log = state.log.slice(0,4); logList.innerHTML = state.log.map(x=>`<li>${esc(x)}</li>`).join(''); }
-function announce(text) { addLog(text); }
+function announce(text) {
+  addLog(text);
+  screenReaderAnnouncement.textContent = '';
+  window.setTimeout(() => { screenReaderAnnouncement.textContent = text; }, 20);
+}
 function ensureAudioContext() {
   if (!audioContext) {
     const Context = window.AudioContext || window.webkitAudioContext;
@@ -159,7 +164,7 @@ function renderIntensity() {
   const current=intensities[state.intensityIndex]; meterFill.style.width=`${(state.intensityIndex+1)*33.333}%`; meterFill.style.background=current.color;
   intensityHint.textContent=state.lang==='pt' ? `${current.name}: sobe ${current.height} camadas e avança ${current.distance} casas.` : `${current.name}: rises ${current.height} layers and advances ${current.distance} cells.`;
   intensityChoices.innerHTML=intensities.map((v,i)=>`<button type="button" data-intensity="${i}" class="${i===state.intensityIndex?'selected':''}">${v.name}<span>${v.distance} casas</span></button>`).join('');
-  intensityChoices.querySelectorAll('button').forEach(b=>b.addEventListener('click',()=>{ state.intensityIndex=+b.dataset.intensity; indicatorTone([220,330,440][state.intensityIndex], .075, 'sine', .026); renderIntensity(); }));
+  intensityChoices.querySelectorAll('button').forEach(b=>b.addEventListener('click',()=>{ state.intensityIndex=+b.dataset.intensity; indicatorTone([220,330,440][state.intensityIndex], .075, 'sine', .026); announce(state.lang==='pt' ? `Intensidade ${intensities[state.intensityIndex].name.toLowerCase()} selecionada.` : `${intensities[state.intensityIndex].name} intensity selected.`); renderIntensity(); }));
   renderStats();
 }
 function buildFlight(intensity) {
@@ -191,8 +196,9 @@ function finishFlight(flight) {
 function radar() {
   const nearby=objects.filter(o=>Math.abs(o.x-state.x)+Math.abs(o.y-state.y)<=6);
   const lines=nearby.length ? nearby.map(o=>`${o.name}, X ${o.x}, Y ${o.y}, Z ${o.z}`).join('; ') : (state.lang==='pt'?'nenhum elemento relevante':'no relevant element');
-  radarOutput.textContent=(state.lang==='pt' ? `Radar — posição X ${state.x}, Y ${state.y}, Z ${state.z}. Próximos: ${lines}.` : `Radar — position X ${state.x}, Y ${state.y}, Z ${state.z}. Nearby: ${lines}.`);
-  announce(state.lang==='pt' ? 'Radar consultado.' : 'Radar consulted.');
+  const report = state.lang==='pt' ? `Radar — posição X ${state.x}, Y ${state.y}, Z ${state.z}. Próximos: ${lines}.` : `Radar — position X ${state.x}, Y ${state.y}, Z ${state.z}. Nearby: ${lines}.`;
+  radarOutput.textContent=report;
+  announce(report);
 }
 function query(key) { if(key==='radar') radar(); else if(key==='rotateLeft') rotate(-1); else if(key==='rotateRight') rotate(1); else if(key==='launch') openIntensity(); else if(key==='north') cameraMove(0,-1); else if(key==='south') cameraMove(0,1); else if(key==='east') cameraMove(1,0); else if(key==='west') cameraMove(-1,0); else if(key==='zUp') cameraMove(0,0,1); else if(key==='zDown') cameraMove(0,0,-1); }
 function reset() { if(state.timer) clearInterval(state.timer); Object.assign(state,{x:1,y:8,z:3,heading:0,durability:3,score:0,turn:1,cameraX:1,cameraY:8,cameraZ:3,selecting:false,busy:false,log:[]}); intensityPanel.hidden=true; launchButton.disabled=false; radarOutput.textContent=''; announce(state.lang==='pt'?'Fase reiniciada.':'Stage restarted.'); render(); }
