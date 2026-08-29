@@ -13,6 +13,7 @@ const intensityHint = document.querySelector('#intensityHint');
 const meterFill = document.querySelector('#intensityMeterFill');
 const radarOutput = document.querySelector('#radarOutput');
 const directionText = document.querySelector('#directionText');
+const flightPreview = document.querySelector('#flightPreview');
 const cameraStatus = document.querySelector('#cameraStatus');
 
 const W = 12, H = 10, CELL_W = 58, CELL_H = 42, ORIGIN_X = 105, ORIGIN_Y = 74, Z_STEP = 13;
@@ -90,6 +91,12 @@ function renderStats() {
   const values = [`Quarto · turno ${state.turn}`, `${state.durability}/${state.maxDurability}`, `X ${state.x}, Y ${state.y}, Z ${state.z}`, state.score];
   stats.innerHTML = labels.map((l,i)=>`<div class="stat"><span class="stat-label">${l}</span><strong class="stat-value">${values[i]}</strong></div>`).join('');
   const d = directions[state.heading]; directionText.textContent = (state.lang==='pt' ? 'Direção atual: ' : 'Current direction: ') + d.name;
+  const preview = buildFlight(intensities[state.intensityIndex]);
+  const previewName = intensities[state.intensityIndex].name;
+  flightPreview.textContent = state.lang==='pt'
+    ? `${previewName}: sobe ${intensities[state.intensityIndex].height} camadas, avança para ${d.name} e pousa aproximadamente em X ${preview.x}, Y ${preview.y}, Z ${preview.z}.`
+    : `${previewName}: rises ${intensities[state.intensityIndex].height} layers, advances ${d.name} and lands approximately at X ${preview.x}, Y ${preview.y}, Z ${preview.z}.`;
+  updateLaunchLabel();
   cameraStatus.textContent = (state.lang==='pt' ? `Câmera: X ${state.cameraX}, Y ${state.cameraY}, Z ${state.cameraZ}` : `Camera: X ${state.cameraX}, Y ${state.cameraY}, Z ${state.cameraZ}`);
 }
 function addLog(text) { state.log.unshift(text); state.log = state.log.slice(0,4); logList.innerHTML = state.log.map(x=>`<li>${esc(x)}</li>`).join(''); }
@@ -106,6 +113,12 @@ function cameraMove(dx,dy,dz=0) {
   const message = state.lang==='pt' ? `Câmera em X ${state.cameraX}, Y ${state.cameraY}, Z ${state.cameraZ}.` : `Camera at X ${state.cameraX}, Y ${state.cameraY}, Z ${state.cameraZ}.`;
   announce(message); renderStats(); drawBoard();
 }
+function updateLaunchLabel() {
+  const current = intensities[state.intensityIndex].name;
+  launchButton.childNodes[0].nodeValue = state.selecting
+    ? (state.lang==='pt' ? `2 — Confirmar ${current}` : `2 — Confirm ${current}`)
+    : (state.lang==='pt' ? '1 — Escolher intensidade' : '1 — Choose intensity');
+}
 function openIntensity() {
   if (state.busy) return;
   if (!state.selecting) {
@@ -119,6 +132,7 @@ function renderIntensity() {
   intensityHint.textContent=state.lang==='pt' ? `${current.name}: sobe ${current.height} camadas e avança ${current.distance} casas.` : `${current.name}: rises ${current.height} layers and advances ${current.distance} cells.`;
   intensityChoices.innerHTML=intensities.map((v,i)=>`<button type="button" data-intensity="${i}" class="${i===state.intensityIndex?'selected':''}">${v.name}<span>${v.distance} casas</span></button>`).join('');
   intensityChoices.querySelectorAll('button').forEach(b=>b.addEventListener('click',()=>{ state.intensityIndex=+b.dataset.intensity; renderIntensity(); }));
+  renderStats();
 }
 function buildFlight(intensity) {
   const d=directions[state.heading]; const topZ=state.z+intensity.height; const points=[];
