@@ -252,6 +252,8 @@ O rodapé exibirá um log com as quatro últimas ações realizadas no jogo.
 - O primeiro pressionamento do botão de lançamento iniciará uma barra que alterna entre as três intensidades.
 - O segundo pressionamento do botão de lançamento confirmará a intensidade atual e efetuará o lançamento.
 - O nível atual da barra terá uma representação sonora.
+- A música da fase do quarto será iniciada após a primeira interação de lançamento, respeitando a política de autoplay do navegador, e terá controle explícito de tocar/pausar.
+- Indicadores curtos de intensidade, rotação, câmera, lançamento e resultado poderão ser gerados localmente pela Web Audio API, com volume discreto e sem substituir os sons físicos aprovados.
 - A câmera usará botões direcionais como método principal de deslocamento pelo grid.
 - Os botões direcionais movimentarão a câmera pelo plano X/Y em passos de uma casa.
 - Haverá controles separados para aumentar ou diminuir a coordenada Z em 1.
