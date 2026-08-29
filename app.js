@@ -12,9 +12,14 @@ const intensityChoices = document.querySelector('#intensityChoices');
 const intensityHint = document.querySelector('#intensityHint');
 const meterFill = document.querySelector('#intensityMeterFill');
 const radarOutput = document.querySelector('#radarOutput');
+const musicButton = document.querySelector('#musicButton');
+const audioStatus = document.querySelector('#audioStatus');
 const directionText = document.querySelector('#directionText');
 const flightPreview = document.querySelector('#flightPreview');
 const cameraStatus = document.querySelector('#cameraStatus');
+const music = new Audio('assets/audio/morning.mp3');
+music.loop = true; music.volume = 0.16;
+let audioContext = null; let audioBus = null;
 
 const W = 12, H = 10, CELL_W = 58, CELL_H = 42, ORIGIN_X = 105, ORIGIN_Y = 74, Z_STEP = 13;
 const intensities = [
@@ -101,17 +106,37 @@ function renderStats() {
 }
 function addLog(text) { state.log.unshift(text); state.log = state.log.slice(0,4); logList.innerHTML = state.log.map(x=>`<li>${esc(x)}</li>`).join(''); }
 function announce(text) { addLog(text); }
+function ensureAudioContext() {
+  if (!audioContext) {
+    const Context = window.AudioContext || window.webkitAudioContext;
+    if (!Context) return null;
+    audioContext = new Context(); audioBus = audioContext.createGain(); audioBus.gain.value = .42; audioBus.connect(audioContext.destination);
+  }
+  if (audioContext.state === 'suspended') audioContext.resume();
+  return audioContext;
+}
+function indicatorTone(frequency, duration=.07, type='sine', volume=.035) {
+  const ctx = ensureAudioContext(); if (!ctx || !audioBus) return;
+  const osc = ctx.createOscillator(); const gain = ctx.createGain(); const now = ctx.currentTime;
+  osc.type = type; osc.frequency.setValueAtTime(frequency, now); gain.gain.setValueAtTime(volume, now); gain.gain.exponentialRampToValueAtTime(.0001, now + duration);
+  osc.connect(gain); gain.connect(audioBus); osc.start(now); osc.stop(now + duration + .02);
+}
+function startMusic() {
+  ensureAudioContext();
+  music.play().then(() => { musicButton.textContent='❚❚ Pausar música'; audioStatus.textContent='Música tocando · indicadores discretos disponíveis.'; }).catch(() => { audioStatus.textContent='Pressione Tocar música para iniciar a faixa.'; });
+}
+function toggleMusic() { ensureAudioContext(); if (music.paused) startMusic(); else { music.pause(); musicButton.textContent='▶ Tocar música'; audioStatus.textContent='Música parada · indicadores discretos disponíveis.'; } }
 function render() { drawBoard(); drawPlane(); renderStats(); }
 
 function rotate(amount) {
   if (state.busy) return; state.heading = (state.heading + amount + directions.length) % directions.length;
   const message = state.lang==='pt' ? `Avião apontado para ${directions[state.heading].name}.` : `Plane pointed ${directions[state.heading].name}.`;
-  announce(message); drawPlane(); renderStats();
+  announce(message); indicatorTone(amount < 0 ? 280 : 360, .065, 'triangle', .028); drawPlane(); renderStats();
 }
 function cameraMove(dx,dy,dz=0) {
   state.cameraX=clamp(state.cameraX+dx,0,W-1); state.cameraY=clamp(state.cameraY+dy,0,H-1); state.cameraZ=clamp(state.cameraZ+dz,0,10);
   const message = state.lang==='pt' ? `Câmera em X ${state.cameraX}, Y ${state.cameraY}, Z ${state.cameraZ}.` : `Camera at X ${state.cameraX}, Y ${state.cameraY}, Z ${state.cameraZ}.`;
-  announce(message); renderStats(); drawBoard();
+  announce(message); if (dz) indicatorTone(dz > 0 ? 620 : 190, .06, 'sine', .022); renderStats(); drawBoard();
 }
 function updateLaunchLabel() {
   const current = intensities[state.intensityIndex].name;
@@ -124,14 +149,14 @@ function openIntensity() {
   if (!state.selecting) {
     state.selecting=true; intensityPanel.hidden=false; launchButton.classList.add('armed');
     announce(state.lang==='pt' ? 'Seleção de intensidade iniciada. Pressione Lançar novamente para confirmar.' : 'Intensity selection started. Press Launch again to confirm.');
-    state.timer=setInterval(()=>{ state.intensityIndex=(state.intensityIndex+1)%3; renderIntensity(); },850); renderIntensity();
-  } else { clearInterval(state.timer); state.selecting=false; intensityPanel.hidden=true; launchButton.classList.remove('armed'); executeLaunch(intensities[state.intensityIndex]); }
+    indicatorTone(260, .08, 'triangle', .026); state.timer=setInterval(()=>{ state.intensityIndex=(state.intensityIndex+1)%3; renderIntensity(); },850); renderIntensity();
+  } else { clearInterval(state.timer); state.selecting=false; intensityPanel.hidden=true; launchButton.classList.remove('armed'); indicatorTone(520, .09, 'triangle', .03); executeLaunch(intensities[state.intensityIndex]); }
 }
 function renderIntensity() {
   const current=intensities[state.intensityIndex]; meterFill.style.width=`${(state.intensityIndex+1)*33.333}%`; meterFill.style.background=current.color;
   intensityHint.textContent=state.lang==='pt' ? `${current.name}: sobe ${current.height} camadas e avança ${current.distance} casas.` : `${current.name}: rises ${current.height} layers and advances ${current.distance} cells.`;
   intensityChoices.innerHTML=intensities.map((v,i)=>`<button type="button" data-intensity="${i}" class="${i===state.intensityIndex?'selected':''}">${v.name}<span>${v.distance} casas</span></button>`).join('');
-  intensityChoices.querySelectorAll('button').forEach(b=>b.addEventListener('click',()=>{ state.intensityIndex=+b.dataset.intensity; renderIntensity(); }));
+  intensityChoices.querySelectorAll('button').forEach(b=>b.addEventListener('click',()=>{ state.intensityIndex=+b.dataset.intensity; indicatorTone([220,330,440][state.intensityIndex], .075, 'sine', .026); renderIntensity(); }));
   renderStats();
 }
 function buildFlight(intensity) {
@@ -144,16 +169,18 @@ function buildFlight(intensity) {
 }
 function executeLaunch(intensity) {
   state.busy=true; launchButton.disabled=true; drawPath([]); const flight=buildFlight(intensity); drawPath(flight.points);
+  startMusic();
   const flightAudio=new Audio('assets/audio/spitfire-flight.wav'); flightAudio.volume=.34; flightAudio.play().catch(()=>{});
+  indicatorTone(520, .1, 'triangle', .035);
   announce(state.lang==='pt' ? `Lançamento ${intensity.name.toLowerCase()} confirmado.` : `${intensity.name} launch confirmed.`);
   let i=0; const tick=()=>{ const p=flight.points[i]; drawPlane(p.x,p.y,p.z,state.heading); i++; if(i<flight.points.length){ setTimeout(tick,150); } else finishFlight(flight); }; tick();
 }
 function finishFlight(flight) {
   state.x=flight.x; state.y=flight.y; state.z=flight.z; state.turn++;
   if(flight.wind) announce(state.lang==='pt' ? 'A corrente da janela empurrou o avião duas casas para o sul.' : 'The window current pushed the plane two cells south.');
-  if(flight.landing && !flight.landing.land) { state.durability--; announce(state.lang==='pt' ? `Colisão com ${flight.landing.name}. Durabilidade perdida.` : `Collision with ${flight.landing.name}. Durability lost.`); }
-  else if(flight.landing && flight.landing.land && flight.landing.id!=='sofa') announce(state.lang==='pt' ? `Pouso sobre ${flight.landing.name}.` : `Landed on ${flight.landing.name}.`);
-  if(flight.x===11 && flight.y===5) { state.score+=100; announce(state.lang==='pt' ? 'Chegada à porta! Fase concluída: +100 pontos.' : 'Reached the door! Stage complete: +100 points.'); }
+  if(flight.landing && !flight.landing.land) { state.durability--; indicatorTone(150, .16, 'sawtooth', .035); announce(state.lang==='pt' ? `Colisão com ${flight.landing.name}. Durabilidade perdida.` : `Collision with ${flight.landing.name}. Durability lost.`); }
+  else if(flight.landing && flight.landing.land && flight.landing.id!=='sofa') { indicatorTone(390, .12, 'sine', .028); announce(state.lang==='pt' ? `Pouso sobre ${flight.landing.name}.` : `Landed on ${flight.landing.name}.`); }
+  if(flight.x===11 && flight.y===5) { state.score+=100; indicatorTone(660, .2, 'triangle', .04); announce(state.lang==='pt' ? 'Chegada à porta! Fase concluída: +100 pontos.' : 'Reached the door! Stage complete: +100 points.'); }
   else state.score+=10;
   if(state.durability<=0) { announce(state.lang==='pt' ? 'O avião foi destruído. Reinicie a fase para tentar novamente.' : 'The plane was destroyed. Restart the stage to try again.'); }
   state.busy=false; launchButton.disabled=false; drawPath([]); render();
@@ -173,10 +200,15 @@ function setLanguage() {
   state.lang=state.lang==='pt'?'en':'pt'; const t=state.lang==='pt'?portuguese:english; document.documentElement.lang=state.lang==='pt'?'pt-BR':'en';
   document.querySelector('h1').textContent=t.title; document.querySelector('.lead').textContent=t.lead; document.querySelector('#status-title').textContent=t.status; document.querySelector('#board-title').textContent=t.board; document.querySelector('#camera-title').textContent=t.camera; document.querySelector('#plane-title').textContent=t.plane; document.querySelector('#radar-title').textContent=t.radar; document.querySelector('#log-title').textContent=t.log; document.querySelector('#resetButton').textContent=t.reset; document.querySelector('#radarButton').textContent=t.radarButton; document.querySelector('#launchButton').childNodes[0].nodeValue=t.launch;
   document.querySelectorAll('[data-action]').forEach(b=>{ const key=b.dataset.action; if(t[key]) b.childNodes[0].nodeValue=t[key]; });
-  document.querySelector('#languageButton').textContent=state.lang==='pt'?'English':'Português'; renderStats(); if(state.selecting) renderIntensity();
+  document.querySelector('#languageButton').textContent=state.lang==='pt'?'English':'Português';
+  document.querySelector('#audio-title').textContent=state.lang==='pt'?'Áudio da fase':'Stage audio';
+  musicButton.textContent=music.paused ? (state.lang==='pt'?'▶ Tocar música':'▶ Play music') : (state.lang==='pt'?'❚❚ Pausar música':'❚❚ Pause music');
+  audioStatus.textContent=music.paused ? (state.lang==='pt'?'Música parada · indicadores discretos disponíveis.':'Music stopped · subtle indicators available.') : (state.lang==='pt'?'Música tocando · indicadores discretos disponíveis.':'Music playing · subtle indicators available.');
+  renderStats(); if(state.selecting) renderIntensity();
 }
 
 document.querySelectorAll('[data-action]').forEach(button=>button.addEventListener('click',()=>query(button.dataset.action)));
+musicButton.addEventListener('click',toggleMusic);
 document.querySelector('#resetButton').addEventListener('click',reset);
 document.querySelector('#languageButton').addEventListener('click',setLanguage);
 document.addEventListener('keydown',e=>{ if(['INPUT','TEXTAREA','SELECT'].includes(document.activeElement.tagName)) return; const k=e.key.toLowerCase(); if(k==='a') query('rotateLeft'); else if(k==='d') query('rotateRight'); else if(k===' ') { e.preventDefault(); query('launch'); } else if(k==='r') query('radar'); else if(k==='w') announce((state.lang==='pt'?'Direção atual: ':'Current direction: ')+directions[state.heading].name); else if(k==='h') announce((state.lang==='pt'?`Durabilidade: ${state.durability} de ${state.maxDurability}.`:`Durability: ${state.durability} of ${state.maxDurability}.`)); else if(k==='s') announce((state.lang==='pt'?`Pontuação: ${state.score}.`:`Score: ${state.score}.`)); else if(e.key==='ArrowUp') query('north'); else if(e.key==='ArrowDown') query('south'); else if(e.key==='ArrowLeft') query('west'); else if(e.key==='ArrowRight') query('east'); else if(e.key==='PageUp') query('zUp'); else if(e.key==='PageDown') query('zDown'); else if(e.key==='Escape' && state.selecting){ clearInterval(state.timer);state.selecting=false;intensityPanel.hidden=true;announce(state.lang==='pt'?'Seleção cancelada.':'Selection cancelled.'); } });
