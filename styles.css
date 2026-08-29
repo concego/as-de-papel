@@ -31,7 +31,11 @@ h2 { margin-bottom: 12px; font-size: 1.25rem; }
 .lead { max-width: 700px; margin-bottom: 0; color: #e3f1f8; font-size: 1.05rem; }
 .layout { display: grid; grid-template-columns: minmax(0, 1.7fr) minmax(330px, .8fr); gap: 22px; padding: 24px 0 45px; }
 .play-column, .control-column { display: grid; gap: 18px; align-content: start; }
-.status-card, .board-card, .log-card, .control-card { padding: 20px; border: 1px solid var(--line); border-radius: 16px; background: var(--panel); box-shadow: 0 8px 24px #20304012; }
+.status-card, .board-card, .log-card, .control-card, .goal-card { padding: 20px; border: 1px solid var(--line); border-radius: 16px; background: var(--panel); box-shadow: 0 8px 24px #20304012; }
+.goal-card { border-left: 6px solid var(--gold); background: #fffaf0; }
+.goal-card p { margin-bottom: 10px; }
+.goal-card ol { margin: 0; padding-left: 24px; }
+.goal-card li { margin: 5px 0; }
 .stats { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 10px; }
 .stat { min-height: 76px; padding: 12px; border-left: 5px solid var(--gold); background: #fff9ee; }
 .stat-label { display: block; color: var(--muted); font-size: .8rem; }
@@ -48,7 +52,9 @@ h2 { margin-bottom: 12px; font-size: 1.25rem; }
 .plane-controls { display: grid; grid-template-columns: 1fr 1.35fr 1fr; gap: 8px; }
 .plane-controls button { display: grid; place-items: center; padding: 7px; font-size: 1.4rem; }
 .plane-controls button span { font-size: .74rem; text-align: center; }
+.flight-preview { min-height: 42px; margin: 0 0 12px; padding: 9px 11px; border-left: 4px solid var(--blue); color: #324353; background: #f0f7fc; font-size: .92rem; }
 .launch-button { color: #fff; border-color: #805214; background: var(--gold); }
+.launch-button.armed { background: #956123; box-shadow: 0 0 0 4px #f4d59b; }
 .launch-button:hover { background: #aa6d17; }
 .intensity-panel { margin-top: 16px; padding: 14px; border: 2px solid #e2b45f; border-radius: 12px; background: #fff7e7; }
 .intensity-panel p { margin-bottom: 10px; }
