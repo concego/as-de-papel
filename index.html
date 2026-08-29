@@ -24,8 +24,9 @@
     <section class="play-column" aria-labelledby="board-title">
       <div class="status-card" aria-labelledby="status-title">
         <h2 id="status-title">Estado da fase</h2>
-        <div class="stats" id="stats" aria-live="polite"></div>
+        <div class="stats" id="stats"></div>
       </div>
+      <p id="screenReaderAnnouncement" class="sr-only" role="status" aria-live="polite" aria-atomic="true"></p>
 
       <section class="goal-card" aria-labelledby="goal-title">
         <h2 id="goal-title">Objetivo desta versão</h2>
@@ -43,7 +44,7 @@
             <p class="eyebrow">Mapa tridimensional</p>
             <h2 id="board-title">Tabuleiro do quarto</h2>
           </div>
-          <p id="cameraStatus" class="camera-status" aria-live="polite"></p>
+          <p id="cameraStatus" class="camera-status"></p>
         </div>
         <div class="board-wrap" tabindex="0" aria-label="Visualização SVG do tabuleiro do quarto. Use o Radar para ouvir a descrição dos elementos.">
           <svg id="board" viewBox="0 0 960 700" role="img" aria-labelledby="board-title board-desc">
@@ -64,7 +65,7 @@
 
       <section class="log-card" aria-labelledby="log-title">
         <h2 id="log-title">Últimas ações</h2>
-        <ol id="actionLog" class="action-log" aria-live="polite"></ol>
+        <ol id="actionLog" class="action-log"></ol>
       </section>
     </section>
 
@@ -91,14 +92,14 @@
 
       <section class="control-card" aria-labelledby="plane-title">
         <h2 id="plane-title">Avião</h2>
-        <p id="directionText" class="direction-text" aria-live="polite"></p>
-        <p id="flightPreview" class="flight-preview" aria-live="polite">Primeiro, escolha a direção do avião.</p>
+        <p id="directionText" class="direction-text"></p>
+        <p id="flightPreview" class="flight-preview">Primeiro, escolha a direção do avião.</p>
         <div class="plane-controls">
           <button data-action="rotateLeft" type="button">↺<span>Girar à esquerda</span></button>
           <button id="launchButton" class="launch-button" data-action="launch" type="button">1 — Escolher intensidade<span>Espaço</span></button>
           <button data-action="rotateRight" type="button">↻<span>Girar à direita</span></button>
         </div>
-        <div id="intensityPanel" class="intensity-panel" hidden aria-live="polite">
+        <div id="intensityPanel" class="intensity-panel" hidden>
           <p><strong>Escolha a intensidade</strong><br><span id="intensityHint">A barra está alternando.</span></p>
           <div class="intensity-meter" aria-hidden="true"><span id="intensityMeterFill"></span></div>
           <div id="intensityChoices" class="intensity-choices"></div>
@@ -109,7 +110,7 @@
         <div class="card-heading-row"><h2 id="radar-title">Radar</h2><span class="key-badge">R</span></div>
         <p class="control-help">Lê os elementos próximos da posição atual do avião, incluindo alturas.</p>
         <button id="radarButton" class="wide-button" data-action="radar" type="button">Ler o Radar</button>
-        <div id="radarOutput" class="radar-output" tabindex="0" aria-live="polite"></div>
+        <div id="radarOutput" class="radar-output" tabindex="0"></div>
       </section>
 
       <section class="control-card legend-card" aria-labelledby="legend-title">
