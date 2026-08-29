@@ -17,8 +17,11 @@ const audioStatus = document.querySelector('#audioStatus');
 const directionText = document.querySelector('#directionText');
 const flightPreview = document.querySelector('#flightPreview');
 const cameraStatus = document.querySelector('#cameraStatus');
-const music = new Audio('assets/audio/morning.mp3');
-music.loop = true; music.volume = 0.16;
+const music = document.querySelector('#phaseMusic');
+music.volume = 0.16;
+music.addEventListener('play', () => { musicButton.textContent='❚❚ Pausar música'; audioStatus.textContent='Música tocando · indicadores discretos disponíveis.'; });
+music.addEventListener('pause', () => { musicButton.textContent='▶ Tocar música'; audioStatus.textContent='Música parada · indicadores discretos disponíveis.'; });
+music.addEventListener('error', () => { audioStatus.textContent='A faixa não pôde ser carregada. Use o player novamente após recarregar a página.'; });
 let audioContext = null; let audioBus = null;
 
 const W = 12, H = 10, CELL_W = 58, CELL_H = 42, ORIGIN_X = 105, ORIGIN_Y = 74, Z_STEP = 13;
